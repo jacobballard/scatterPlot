@@ -9,31 +9,22 @@ var drawGraph = function(data){
 
   var margins = {
     top:10,
-    bottom:30,
+    bottom:10,
     left:30,
-    right:120
+    right:50
   }
 
-  var graphWidth = screen.width - margins.left - margins.right;
-  var graphHeight = screen.height - margins.top - margins.bottom;
+  var width = screen.width - margins.left - margins.right;
+  var height = screen.height - margins.top - margins.bottom;
 
   console.log('script runnig')
   var xScale = d3.scaleLinear()
                 .domain([0, 20])
-                .range([0, graphWidth]);
+                .range([0, width]);
 
   var yScale = d3.scaleLinear()
                 .domain([0, 100])
-                .range([graphHeight, 0])
-
-  var xAxis = d3.axisBottom()
-                   .scale(xScale);
-
-  var yAxis = d3.axisBottom()
-   .scale(yScale);
-
-//Dot radius
-  var radius = 5;
+                .range([height, 0])
 
   var svg = d3.select("svg")
             .attr("width",screen.width)
@@ -43,8 +34,7 @@ var drawGraph = function(data){
 
 
   var plotLand = svg.append("g")
-                    .classed('plot', true)
-                    .attr('transform', "translate(" + margins.left + "," + margins.top +")");
+                    .classed('plot', true);
 
   var students = plotLand.selectAll('g')
                           .data(data)
@@ -52,34 +42,22 @@ var drawGraph = function(data){
                           .append('g');
 
   students.selectAll('g')
-        .data(function(d, i){return d.grades})
+        .data(function(student){return student.grades})
         .enter()
         .append('circle')
         .attr("cx", function(d, i){return xScale(i)})
         .attr('cy', function(d, i){return yScale(d)})
-        .attr('r', radius);
-
-        //.attr("fill", function(d, i){console.log("d.name", d);return colors(d)})
-
-    svg.append("g")
-            .call(xAxis)
-            .attr("transform", function(){
-              return "translate(" + margins.left + "," + (margins.top + graphHeight + radius) + ")";
-              });
+        .attr('r', 5);
 
   var legend = svg.append('g')
                   .classed('legend', true)
-                  .attr('transform', "translate(" + graphWidth +"," + margins.top+")")
+                  .attr('transform', "translate(" + (screen.width)+"," + margins.top+")")
 
   var legendLines = legend.selectAll('g')
-                    .data(data, function(d, i){return [d, i]})
+                    .data(data)
                     .enter()
                     .append('g')
                     .classed('legendLine', true)
-                    .attr('transform', function(d, i){
-                                        var x = 10;
-                                        var y = (i * 25);
-                                        return "translate(" + x + "," + y +")"});
 
   legendLines.append('rect')
              .attr('x', 0)
@@ -87,10 +65,11 @@ var drawGraph = function(data){
              .attr('width', 10)
              .attr('height', 10)
              .attr('fill', function(d){return colors(d.name);})
+             .attr('transform', '')
 
   legendLines.append('text')
              .attr('x', 20)
-             .attr('y', 10)
+             .attr('y', 0)
              .text(function(d) {return d.name})
 
 
