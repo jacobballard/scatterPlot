@@ -5,9 +5,22 @@
     <title>Scatterplot Visualization</title>
   </head>
   <body>
-    <svg class="scatter-plot"></svg>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script type="text/javascript" src="scatter.js"></script>
+    <center><form id="size-form">
+      Change the size of the scatter plot:
+      <select id="graph-size">
+         <option value="default" title="default">Default</option>
+         <option value="wide" title="wide">Wide</option>
+         <option value="tall" title="tall">Tall</option>
+      </select><br><br>
+      Enter a new student name to add: <input id="student-name" type="text"><br><br>
+      Enter the student's scores separated by comma: <input id="scores" type="text" value="80, 96,78, 90, 76, 59, 99, 100"><br><br>
+      <button id="add-new" onclick="return false;">Add a new student</button>
+    </form><center>
+    <br>
+    <br>
+    <center class="graph-section"></center>
   </body>
-
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script type="text/javascript" src="scatter.js"></script>
+  <link href="style.css" rel="stylesheet">
 </html>

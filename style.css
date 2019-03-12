@@ -1,0 +1,13 @@
+.scatter-plot{
+  margin-right: auto;
+  margin-left: 50px;
+}
+
+.tooltip{
+  font-size: 20px;
+  color: red;
+  border-style: solid;
+  border-radius: 10px;
+  background-color: grey;
+  position: absolute;
+}
